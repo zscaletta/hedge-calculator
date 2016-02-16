@@ -183,8 +183,8 @@ class Backend:
         while ca > 0:
 
             start = self.window.start_hedge
-            llvl = int((start +(ca*self.window.hincre)))
-            hlvl = int((start-(ca*self.window.hincre)))
+            llvl = int((start + (ca*self.window.hincre)))
+            hlvl = int((start - (ca*self.window.hincre)))
 
             new_labels.append(llvl)
             new_labels.append(hlvl)

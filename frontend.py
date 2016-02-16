@@ -1,8 +1,8 @@
 from PyQt4 import QtGui
 from backend import Backend
 
-class Window(QtGui.QWidget):
 
+class Window(QtGui.QWidget):
 
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
@@ -17,11 +17,23 @@ class Window(QtGui.QWidget):
         self.sprice = 0.0
         self.optpnl = 0
         self.optqty = 0
-        self.stke= 0.0
+        self.stke = 0.0
         self.put = True
         self.long = True
         self.longopt = True
         self.start_hedge = 0
+
+        self.tableWidget = None
+        self.oqle = None
+        self.ople = None
+        self.ssle = None
+        self.radio1 = None
+        self.sele = None
+        self.ince = None
+        self.since = None
+        self.uirows = None
+        self.uicols = None
+        self.sle = None
 
         self.hc_backend = Backend()
         self.hc_backend.window = self
@@ -42,7 +54,7 @@ class Window(QtGui.QWidget):
     def draw_opt_settings(self):
 
         # create 'option settings' group box
-        groupBox = QtGui.QGroupBox("Option/Stock Settings")
+        groupbox = QtGui.QGroupBox("Option/Stock Settings")
 
         # vertical box to hold widgets
         ope = QtGui.QVBoxLayout()
@@ -101,13 +113,13 @@ class Window(QtGui.QWidget):
         ope.addLayout(lsopt)
         ope.addLayout(stkent)
         # add vertical container to 'option' groupbox
-        groupBox.setLayout(ope)
+        groupbox.setLayout(ope)
 
-        return groupBox
+        return groupbox
 
     def draw_table_settings(self):
 
-        groupBox = QtGui.QGroupBox("Table Settings")
+        groupbox = QtGui.QGroupBox("Table Settings")
 
         # vertical box to hold widgets
         vbox = QtGui.QVBoxLayout()
@@ -162,8 +174,8 @@ class Window(QtGui.QWidget):
         vbox.addLayout(hlvl)
         vbox.addLayout(hinc)
         vbox.addLayout(strk)
-        groupBox.setLayout(vbox)
-        return groupBox
+        groupbox.setLayout(vbox)
+        return groupbox
 
     def draw_table(self, rows, cols):
 
