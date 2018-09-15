@@ -1,4 +1,7 @@
-from PyQt4 import QtGui
+try:
+	from PyQt4 import QtGui
+except:
+	from PyQt5 import QtWidgets
 
 
 class Backend:
@@ -75,7 +78,7 @@ class Backend:
         for col in self.calc_struc:
             o = 0
             for item in col:
-                nitem = QtGui.QTableWidgetItem()
+                nitem = QtWidgets.QTableWidgetItem()
                 item = "{0:.2f}".format(item)
                 nitem.setText(str(item))
                 self.window.tableWidget.setItem(o, c, nitem)
@@ -206,7 +209,7 @@ class Backend:
         self.up_hlbl()
         self.up_headers()
 
-class Window(QtGui.QWidget):
+class Window(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
@@ -245,7 +248,7 @@ class Window(QtGui.QWidget):
 
         self.hc_backend = Backend()
         self.hc_backend.window = self
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.setColumnStretch(1, 2)
         self.setLayout(grid)
         grid.addWidget(self.draw_opt_settings(), 0, 0)
@@ -262,33 +265,33 @@ class Window(QtGui.QWidget):
     def draw_opt_settings(self):
 
         # create 'option settings' group box
-        groupbox = QtGui.QGroupBox("Option/Stock Settings")
+        groupbox = QtWidgets.QGroupBox("Option/Stock Settings")
 
         # vertical box to hold widgets
-        ope = QtGui.QVBoxLayout()
+        ope = QtWidgets.QVBoxLayout()
 
         # horizontal boxes to hold widgets
-        opqt = QtGui.QHBoxLayout()
-        oqla = QtGui.QLabel("Option Qty (+/-):", self)
-        self.lineedit_optquan = QtGui.QLineEdit(self)
+        opqt = QtWidgets.QHBoxLayout()
+        oqla = QtWidgets.QLabel("Option Qty (+/-):", self)
+        self.lineedit_optquan = QtWidgets.QLineEdit(self)
         self.lineedit_optquan.setText("0")
         opqt.addWidget(oqla)
         opqt.addWidget(self.lineedit_optquan)
         opqt.addStretch(1)
         self.lineedit_optquan.editingFinished.connect(lambda: self.refresh_table())
 
-        pnl = QtGui.QHBoxLayout()
-        opla = QtGui.QLabel("Option Price:", self)
-        self.lineedit_optprice = QtGui.QLineEdit(self)
+        pnl = QtWidgets.QHBoxLayout()
+        opla = QtWidgets.QLabel("Option Price:", self)
+        self.lineedit_optprice = QtWidgets.QLineEdit(self)
         self.lineedit_optprice.setText(".05")
         pnl.addWidget(opla)
         pnl.addWidget(self.lineedit_optprice)
         pnl.addStretch(1)
         self.lineedit_optprice.editingFinished.connect(lambda: self.refresh_table())
 
-        sstrk = QtGui.QHBoxLayout()
-        ssla = QtGui.QLabel("Strike Price:", self)
-        self.lineedit_strike = QtGui.QLineEdit(self)
+        sstrk = QtWidgets.QHBoxLayout()
+        ssla = QtWidgets.QLabel("Strike Price:", self)
+        self.lineedit_strike = QtWidgets.QLineEdit(self)
         self.lineedit_strike.setText("5")
         sstrk.addWidget(ssla)
         sstrk.addWidget(self.lineedit_strike)
@@ -296,9 +299,9 @@ class Window(QtGui.QWidget):
         self.lineedit_strike.editingFinished.connect(lambda: self.refresh_table())
 
         # radio buttons to select put/call
-        lsopt = QtGui.QHBoxLayout()
-        self.radio_putcall = QtGui.QRadioButton("Put")
-        radio2 = QtGui.QRadioButton("Call")
+        lsopt = QtWidgets.QHBoxLayout()
+        self.radio_putcall = QtWidgets.QRadioButton("Put")
+        radio2 = QtWidgets.QRadioButton("Call")
         self.radio_putcall.setChecked(True)
         lsopt.addWidget(self.radio_putcall)
         lsopt.addWidget(radio2)
@@ -306,9 +309,9 @@ class Window(QtGui.QWidget):
         self.radio_putcall.clicked.connect(lambda: self.refresh_table())
         radio2.clicked.connect(lambda: self.refresh_table())
 
-        stkent = QtGui.QHBoxLayout()
-        sel = QtGui.QLabel("Stock Entry:", self)
-        self.lineedit_stockentry = QtGui.QLineEdit(self)
+        stkent = QtWidgets.QHBoxLayout()
+        sel = QtWidgets.QLabel("Stock Entry:", self)
+        self.lineedit_stockentry = QtWidgets.QLineEdit(self)
         self.lineedit_stockentry.setText("2")
         stkent.addWidget(sel)
         stkent.addWidget(self.lineedit_stockentry)
@@ -327,50 +330,50 @@ class Window(QtGui.QWidget):
 
     def draw_table_settings(self):
 
-        groupbox = QtGui.QGroupBox("Table Settings")
+        groupbox = QtWidgets.QGroupBox("Table Settings")
 
         # vertical box to hold widgets
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
 
-        plvl = QtGui.QHBoxLayout()
-        uirl = QtGui.QLabel("Price Levels:", self)
-        self.lineedit_pricelevels = QtGui.QLineEdit(self)
+        plvl = QtWidgets.QHBoxLayout()
+        uirl = QtWidgets.QLabel("Price Levels:", self)
+        self.lineedit_pricelevels = QtWidgets.QLineEdit(self)
         self.lineedit_pricelevels.setText("3")
         plvl.addWidget(uirl)
         plvl.addWidget(self.lineedit_pricelevels)
         plvl.addStretch(1)
         self.lineedit_pricelevels.editingFinished.connect(lambda: self.refresh_table())
 
-        pinc = QtGui.QHBoxLayout()
-        incl = QtGui.QLabel("Price Increment:", self)
-        self.lineedit_priceincrement = QtGui.QLineEdit(self)
+        pinc = QtWidgets.QHBoxLayout()
+        incl = QtWidgets.QLabel("Price Increment:", self)
+        self.lineedit_priceincrement = QtWidgets.QLineEdit(self)
         self.lineedit_priceincrement.setText('1')
         pinc.addWidget(incl)
         pinc.addWidget(self.lineedit_priceincrement)
         pinc.addStretch(1)
         self.lineedit_priceincrement.editingFinished.connect(lambda: self.refresh_table())
 
-        hlvl = QtGui.QHBoxLayout()
-        uicl = QtGui.QLabel("Hedge Levels:", self)
-        self.lineedit_hedgelevels = QtGui.QLineEdit(self)
+        hlvl = QtWidgets.QHBoxLayout()
+        uicl = QtWidgets.QLabel("Hedge Levels:", self)
+        self.lineedit_hedgelevels = QtWidgets.QLineEdit(self)
         self.lineedit_hedgelevels.setText("2")
         hlvl.addWidget(uicl)
         hlvl.addWidget(self.lineedit_hedgelevels)
         hlvl.addStretch(1)
         self.lineedit_hedgelevels.editingFinished.connect(lambda: self.refresh_table())
 
-        hinc = QtGui.QHBoxLayout()
-        sincl = QtGui.QLabel("Hedge Increment:", self)
-        self.lineedit_hedgeincrement = QtGui.QLineEdit(self)
+        hinc = QtWidgets.QHBoxLayout()
+        sincl = QtWidgets.QLabel("Hedge Increment:", self)
+        self.lineedit_hedgeincrement = QtWidgets.QLineEdit(self)
         self.lineedit_hedgeincrement.setText('100')
         hinc.addWidget(sincl)
         hinc.addWidget(self.lineedit_hedgeincrement)
         hinc.addStretch(1)
         self.lineedit_hedgeincrement.editingFinished.connect(lambda: self.refresh_table())
 
-        strk = QtGui.QHBoxLayout()
-        sla = QtGui.QLabel("Hedge Start (+/-):", self)
-        self.lineedit_hedgestart = QtGui.QLineEdit(self)
+        strk = QtWidgets.QHBoxLayout()
+        sla = QtWidgets.QLabel("Hedge Start (+/-):", self)
+        self.lineedit_hedgestart = QtWidgets.QLineEdit(self)
         self.lineedit_hedgestart.setText("0")
         self.lineedit_hedgestart.editingFinished.connect(lambda: self.refresh_table())
         strk.addWidget(sla)
@@ -387,7 +390,7 @@ class Window(QtGui.QWidget):
 
     def draw_table(self, rows, cols):
 
-        self.tableWidget = QtGui.QTableWidget(rows, cols, self)
+        self.tableWidget = QtWidgets.QTableWidget(rows, cols, self)
         self.tableWidget.resize(700, 400)
         self.tableWidget.move(75, 20)
         self.tableWidget.setHorizontalHeaderLabels(self.hlbl)
@@ -397,7 +400,7 @@ class Window(QtGui.QWidget):
 
 if __name__ == '__main__':
     import sys
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     clock = Window()
     clock.show()
     sys.exit(app.exec_())
